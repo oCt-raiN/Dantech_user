@@ -1,0 +1,143 @@
+<!-- profile pic uploadiong pen -->
+<!-- https://codepen.io/azazy/pen/EgdXxG -->
+<!-- profile form -->
+<!-- https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details#preview -->
+<!-- https://bbbootstrap.com/snippets/bootstrap-edit-profile-accounts-setting-template-80240656 -->
+<!-- D:\multiform_dantecch_try -->
+<form>
+
+    <!-- Account details card-->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="card-title">
+                Step 1
+            </h2>
+            <h4 class="card-subtitle">
+                Organization details
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4">
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card mt-3">
+                            <div class="profile-pic">
+                                <label class="-label" for="file">
+                                    <i class="bi bi-camera" style="font-size: 1.25em;"></i>
+                                    <span>Change Image</span>
+                                </label>
+                                <input id="file" type="file" onchange="loadFile(event)" />
+                                <img src='assets/images/users/user.svg' id="output" width="184px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+
+                    <div class="mb-3">
+                        <label for="inputUsername">Organization name</label>
+                        <input id="inputUsername" type="text" placeholder="Enter organization">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputUsername">Email</label>
+                        <input id="inputUsername" type="text" placeholder="Enter your email address">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (first name)-->
+                <div class="col-md-6">
+                    <label for="inputFirstName">Phone number</label>
+                    <input id="inputFirstName" type="text" placeholder="Enter your mobile number">
+                </div>
+                <!-- Form Group (last name)-->
+                <div class="col-md-6">
+                    <label for="inputLastName">Alternate number</label>
+                    <input id="inputLastName" type="text" placeholder="Enter your alternate mobile number">
+                </div>
+            </div>
+            <!-- Form Group (address)-->
+            <div class="mb-3">
+                <label for="inputEmailAddress">Address</label>
+                <input id="inputEmailAddress" type="email" placeholder="Enter your address">
+            </div>
+            <!-- Form Row        -->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (organization name)-->
+                <div class="col-md-6">
+                    <label for="inputOrgName">City</label>
+                    <input id="inputOrgName" type="text" placeholder="Enter your organization city">
+                </div>
+                <!-- Form Group (location)-->
+                <div class="col-md-6">
+                    <label for="inputLocation">State</label>
+                    <input id="inputLocation" type="text" placeholder="Enter your organization state">
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (organization name)-->
+                <div class="col-md-6">
+                    <label for="inputOrgName">Pincode</label>
+                    <input id="inputOrgName" type="text" placeholder="Enter your organization location pincode">
+                </div>
+                <!-- Form Group (location)-->
+                <div class="col-md-6">
+                    <label for="inputLocation">Country</label>
+                    <input id="inputLocation" type="text" placeholder="Enter your Country">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="card-title">
+                Step 2
+            </h2>
+            <h4 class="card-subtitle">
+                Bank details
+            </h4>
+        </div>
+        <div class="card-body">
+            <!-- Form Group (bank acc number-->
+            <div class="mb-3">
+                <label for="inputUsername">Bank account number </label>
+                <input id="inputUsername" type="text" placeholder="Enter bank account number">
+            </div>
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (ifsc number)-->
+                <div class="col-md-6">
+                    <label for="inputFirstName">IFSC number</label>
+                    <input id="inputFirstName" type="text" placeholder="Enter IFSC number">
+                </div>
+                <!-- Form Group (bank branch)-->
+                <div class="col-md-6">
+                    <label for="inputLastName">Bank branch</label>
+                    <input id="inputLastName" type="text" placeholder="Enter the bank branch">
+                </div>
+            </div>
+            <!-- Form Row -->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (upiid)-->
+                <div class="col-md-6">
+                    <label for="inputOrgName">UPI ID</label>
+                    <input id="inputOrgName" type="text" placeholder="Enter UPI ID">
+                </div>
+                <!-- Form Group (gst)-->
+                <div class="col-md-6">
+                    <label for="inputLocation">GST</label>
+                    <input id="inputLocation" type="text" placeholder="Enter GST number">
+                </div>
+            </div>
+            <!-- Save changes button-->
+            <button type="button">Save changes</button>
+        </div>
+    </div>
+</form>

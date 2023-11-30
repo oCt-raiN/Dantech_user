@@ -1,0 +1,299 @@
+<section *ngFor='let ts of viewdatalist'>
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="{{ts.image}}" alt="avatar" class="rounded-circle img-fluid" style="width: 184px;">
+                        <br>
+                        <br>
+                        <h5 class="card-subtitle text-muted">{{ts.clinicname}}</h5>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body p-2">
+                        <h4 class="card-title" style="padding-top:7%; padding-left:7%">GST number</h4>
+                        <h5 class="card-subtitle text-muted" style="padding-top:3%; padding-left:7%">{{ts.gst}}</h5>
+                    </div>
+                </div>
+                <div class="card mb-4 mb-lg-0" style="padding-bottom:8%">
+                    <div class="card-body p-0">
+                        <h4 class="card-title" style="padding-top:7%; padding-left:7%">Bank details</h4>
+                        <h5 class="card-subtitle text-muted" style="padding-top:3%; padding-left:7%">Payment
+                            informations</h5>
+                        <ul class="list-group list-group-flush rounded-3">
+                            <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div class="col">
+                                    <h5 class="mb-0 fw-normal ms-3">GST number</h5><br>
+                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.gst}}</h5>
+                                </div>
+                            </li> -->
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div class="col">
+                                    <h5 class="mb-0 fw-normal ms-3">Bank account number</h5><br>
+                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.bankacc}}</h5>
+
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div class="col">
+
+                                    <h5 class="mb-0 fw-normal ms-3">IFSC number</h5><br>
+                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.ifsc}}</h5>
+
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div class="col">
+
+                                    <h5 class="mb-0 fw-normal ms-3">Bank branch</h5><br>
+                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.bankbranch}}</h5>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div class="col">
+                                    <h5 class="mb-0 fw-normal ms-3">Payment method</h5><br>
+                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.paymentmethod}}
+                                    </h5>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4" style="text-align:center">
+                                <!-- You can now use it in app.component.html -->
+                                <circle-progress class="circle__progress" [percent]="ts.profilecompletionpercentage"
+                                    [animation]=" true" [animationDuration]="300" [startFromZero]="true"
+                                    [showInnerStroke]="true" [titleFontSize]="'28'" [titleFontWeight]="'900'"
+                                    [unitsFontSize]="'28'" [unitsFontWeight]="'900'" [subtitle]="'Progress'"
+                                    [subtitleFontSize]="'12'" [lazy]="false"></circle-progress>
+                            </div>
+                            <div class="col-8" id="progresdesc">
+                                <h2>Profile completion</h2>
+                                <p>Please complete the profile to make orders</p>
+                                <br>
+                                <button type="submit" class="login-button" [routerLink]="['/profile/form']">Complete
+                                    profile</button>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 5%;">
+                            <div class="col-6">
+                                <ul style="list-style-type: none;">
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h5 class="mb-0 fw-normal ms-3">Clinic logo</h5><br>
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="bi bi-check-circle"
+                                                    style="font-size: 23px; color: green;"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h5 class="mb-0 fw-normal ms-3">Phone number</h5><br>
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="bi bi-x-circle" style="font-size: 23px; color: red;"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h5 class="mb-0 fw-normal ms-3">Email</h5><br>
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="bi bi-x-circle" style="font-size: 23px; color: red;"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <ul style="list-style-type: none;">
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h5 class="mb-0 fw-normal ms-3">Address</h5><br>
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="bi bi-check-circle"
+                                                    style="font-size: 23px; color: green;"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h5 class="mb-0 fw-normal ms-3">GST number</h5><br>
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="bi bi-check-circle"
+                                                    style="font-size: 23px; color: green;"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h5 class="mb-0 fw-normal ms-3">Doctors list</h5><br>
+                                            </div>
+                                            <div class="col-3">
+                                                <i class="bi bi-x-circle" style="font-size: 23px; color: red;"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Clinic/Hospital information</h4><br>
+                        <div class="row">
+                            <div class="col-5">
+                                <h5 class="mb-0 fw-normal ms-3">Clinic/Hospital name </h5><br>
+                            </div>
+                            <div class="col-7">
+                                <h5 class="card-subtitle text-muted">{{ts.clinicname}}</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-5">
+                                <h5 class="mb-0 fw-normal ms-3">Number </h5>
+                            </div>
+                            <div class="col-7">
+                                <h5 class="card-subtitle text-muted">{{ts.clinicno}}</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-5">
+                                <h5 class="mb-0 fw-normal ms-3">Email </h5><br>
+                            </div>
+                            <div class="col-7">
+                                <h5 class="card-subtitle text-muted">{{ts.Email}}</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-5">
+                                <h5 class="mb-0 fw-normal ms-3">Address </h5><br>
+                            </div>
+                            <div class="col-7">
+                                <h5 class="card-subtitle text-muted">{{ts.clinicaddress}}</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-5">
+                                <h5 class="mb-0 fw-normal ms-3">City</h5>
+                            </div>
+                            <div class="col-7">
+                                <h5 class="card-subtitle text-muted">{{ts.cliniccity}}</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-5">
+                                <h5 class="mb-0 fw-normal ms-3">State</h5>
+                            </div>
+                            <div class="col-7">
+                                <h5 class="card-subtitle text-muted">{{ts.clinicstate}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container ">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- title -->
+                        <h4 class="card-title">Doctors</h4>
+                        <h5 class="card-subtitle">Overview of doctors list</h5>
+                        <div class="row">
+                            <div class="col-10">
+                                <input class="form-control" type="text" name="search" [(ngModel)]="searchText"
+                                    (ngModelChange)="filterData()" autocomplete="off" placeholder="Find your orders">
+                            </div>
+                            <div class="col-2 align-self-center">
+                                <button class="login-button" data-bs-toggle="modal" data-bs-target="#modalid">Add
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th (click)="sortColumn('clinicid')" class="text-dark font-medium fs-4">
+                                                Clinic
+                                                Id
+                                                &nbsp; <i class="bi bi-arrow-down-up"></i></th>
+                                            <th (click)="sortColumn('doctorid')" class="text-dark font-medium fs-4">
+                                                Doctor
+                                                Id
+                                                &nbsp; <i class="bi bi-arrow-down-up"></i></th>
+                                            <th (click)="sortColumn('doctorname')" class="text-dark font-medium fs-4">
+                                                Doctor
+                                                Name &nbsp; <i class="bi bi-arrow-down-up"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor='let ts of filteredData'>
+                                            <td class="fs-4">
+                                                {{ts.clinicid}}
+                                            </td>
+                                            <td>
+                                                {{ts.doctorid}}
+                                            </td>
+                                            <td>
+                                                {{ts.doctorname}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalid">
+        <div class="modal-dialog modal-dialog-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal-Title</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+
+                        <input type="text" placeholder="Name" />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                            [routerLink]="['/profile/view']">Add
+                            Doctor</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
