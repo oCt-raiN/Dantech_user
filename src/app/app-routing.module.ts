@@ -6,10 +6,9 @@ import { BlankComponent } from './layouts/blank/blank.component';
 
 export const Approutes: Routes = [
   {
-    path: '',
+    path: 'det',
     component: FullComponent,
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 
       {
         path: 'dashboard',
@@ -48,9 +47,10 @@ export const Approutes: Routes = [
     ],
   },
   {
-    path: 'blank',
+    path: '',
     component: BlankComponent,
     children: [
+      { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
       {
         path: 'auth',
         loadChildren: () =>
