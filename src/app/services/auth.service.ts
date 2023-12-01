@@ -47,7 +47,9 @@ export class AuthService {
   return this.http.post(`${environment.apiUrl}/api/user/register`, user);
 }
 
-
+  profilereg(profile: Profileinformation){
+    return this.http.post(`${environment.apiUrl}/api/profile/save`,profile)
+  }
 
 
 }

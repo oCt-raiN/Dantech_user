@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProfileRoutes } from './profile-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewComponent } from './view/view.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FormComponent } from './form/form.component';
@@ -13,6 +13,7 @@ import { FormComponent } from './form/form.component';
     CommonModule,
     RouterModule.forChild(ProfileRoutes),
     FormsModule,
+    ReactiveFormsModule,
     // Specify ng-circle-progress as an import
     NgCircleProgressModule.forRoot({
       // set defaults here
