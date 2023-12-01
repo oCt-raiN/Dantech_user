@@ -104,7 +104,7 @@ export class LoginComponent {
           }
       });
 
-    window.location.reload();
+    // window.location.reload();
   }
 
 

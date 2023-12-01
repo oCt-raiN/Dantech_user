@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
+import { Profileinformation } from '../models/profile';
 import { environment } from 'src/environments/environment';
 
 
