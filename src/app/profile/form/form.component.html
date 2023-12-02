@@ -6,7 +6,7 @@
 
 <!-- D:\multiform_dantecch_try -->
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
 
         <!-- Account details card-->
         <div class="card mb-4">
@@ -84,15 +84,15 @@
                     <!-- Form Group (last name)-->
                     <div class="col-md-6">
                         <label for="inputLastName">Alternate number</label>
-                        <input type="text" formControlName="phonenumber" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['phonenumber'].errors }"
+                        <input type="text" formControlName="alternativenumber" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['alternativenumber'].errors }"
                             placeholder="Enter Alternative number" />
-                        <div *ngIf="submitted && f['phonenumber'].errors" class="invalid-feedback">
-                            <div *ngIf="f['phonenumber'].errors && f['phonenumber'].errors['required']">Phone number is
+                        <div *ngIf="submitted && f['alternativenumber'].errors" class="invalid-feedback">
+                            <div *ngIf="f['alternativenumber'].errors && f['alternativenumber'].errors['required']">Phone number is
                                 required</div>
                         </div>
-                        <div *ngIf="submitted && f['phonenumber'].errors" class="invalid-feedback">
-                            <div *ngIf="f['phonenumber'].errors && f['phonenumber'].errors['pattern']">Should contain
+                        <div *ngIf="submitted && f['alternativenumber'].errors" class="invalid-feedback">
+                            <div *ngIf="f['alternativenumber'].errors && f['alternativenumber'].errors['pattern']">Should contain
                                 only numerals(10)</div>
                         </div>
                     </div>
@@ -230,7 +230,7 @@
                     </div>
                 </div>
                 <!-- Save changes button-->
-                <button type="submit" (click)="onSubmit()">Submit profile</button>
+                <button type="submit">Submit profile</button>
             </div>
         </div>
     </form>

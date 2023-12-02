@@ -29,26 +29,26 @@ export class FormComponent {
       const file = target.files[0];
       image.src = URL.createObjectURL(target.files[0]);
 
-      this.saveFileLocally(file);
+      // this.saveFileLocally(file);
     }
   }
   // profile image save try
-  saveFileLocally(file: File): void {
-    const reader = new FileReader();
+  // saveFileLocally(file: File): void {
+  //   const reader = new FileReader();
 
-    reader.onload = (event) => {
-      const base64Data = (event.target as any).result;
-      const fileName = file.name;
+  //   reader.onload = (event) => {
+  //     const base64Data = (event.target as any).result;
+  //     const fileName = file.name;
 
-      // Save the base64 data to local storage
-      localStorage.setItem(fileName, base64Data);
+  //     // Save the base64 data to local storage
+  //     localStorage.setItem(fileName, base64Data);
 
-      console.log('File saved locally:', fileName);
-    };
+  //     console.log('File saved locally:', fileName);
+  //   };
 
-    // Read the file as data URL
-    reader.readAsDataURL(file);
-  }
+  //   // Read the file as data URL
+  //   reader.readAsDataURL(file);
+  // }
 
   ngOnInit() {
 
@@ -63,39 +63,37 @@ export class FormComponent {
       state: ['',[Validators.required]],
       pincode: ['',[Validators.required,Validators.maxLength(6),Validators.pattern("^[1-9][0-9]+$")]],
       country: ['',[Validators.required]],
-      bank_acNo: ['',[Validators.required,Validators.pattern("^\d{9,18}$")]],
+      bank_acNo: ['',[Validators.required,Validators.minLength(9),Validators.maxLength(16),Validators.pattern("[0-9]+")]],
       ifsc : ['',[Validators.required,Validators.pattern("^[A-Za-z]{4}[a-zA-Z0-9]{7}$")]],
       bank_brnch: ['',[Validators.required]],
-      upi_id: ['',[Validators.required,Validators.pattern("^[\w.-]+@[\w.-]+$")]],
+      upi_id: ['',[Validators.required,Validators.pattern("[a-zA-Z0-9_]{3,}@[a-zA-Z]{3,}")]],
       gst: ['',[Validators.required,Validators.pattern("[0-9]{2}[A-Z]{3}[ABCFGHLJPTF]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}")]]
     });
   }
 
-  get f() { return this.form.controls;}
+  get f() { return this.form.controls; }
 
   onSubmit() {
+    this.submitted = true;
 
-    // reset alerts on submit
-    // this.alertService.clear();
-     // stop here if form is invalid
-     if (this.form.invalid) {
+    if (this.form.invalid) {
       return;
   }
   this.loading = true;
   this.authservice.profilereg(this.form.value)
   .pipe(first())
   .subscribe({
-      next: () => {
-          // this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-          this.router.navigate(['../pages-login'], { relativeTo: this.route });
-      },
+    next: () => {
+      this.router.navigate(['/det/profile/view']);
+    },
       error: error => {
-          // this.alertService.error(error);
-          this.loading = false;
-      }
-    });
+        // this.alertService.error(error);
+        this.loading = false;
+    }
+});
+  
 
-    this.router.navigate(["/det/profile/view"])
+  this.router.navigate(["/det/profile/view"])
   }
 
 
