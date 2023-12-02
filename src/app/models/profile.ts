@@ -1,4 +1,5 @@
 export class Profileinformation {
+   id: string;
    name: string;
    email: string;
    phonenumber: number;
@@ -13,4 +14,7 @@ export class Profileinformation {
    bank_brnch: string;
    upi_id: string;
    gst: string;
+   img: string;
+   completion_percentage;
+   token:string;
 }

@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { Profileinformation } from '../models/profile';
+import { doctors } from '../models/doctors';
 import { environment } from 'src/environments/environment';
 
 
@@ -49,6 +50,10 @@ export class AuthService {
 
   profilereg(profile: Profileinformation){
     return this.http.post(`${environment.apiUrl}/api/profile/save`,profile)
+  }
+
+  adddoctor(doc : doctors){
+    return this.http.post(`${environment.apiUrl}/api/doctor/save`,doc)
   }
 
 
