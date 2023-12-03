@@ -84,7 +84,7 @@ export class FormComponent {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.router.navigate(['/det/profile/view']);
+          // this.router.navigate(['/det/profile/view']);
         },
         error: error => {
           // this.alertService.error(error);

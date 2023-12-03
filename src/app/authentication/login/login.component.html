@@ -5,6 +5,7 @@
     </h1>
 
     <div class="container" id="container">
+        
         <div class="form-container sign-up-container">
             <form [formGroup]="register" >
                 <h1>Create Account</h1>
@@ -49,9 +50,12 @@
                 <div *ngIf="reg_submitted && r['password'].errors" class="invalid-feedback">
                     <div *ngIf="r['password'].errors && r['password'].errors['pattern']">Password is weak</div>
                  </div>
-
+                 <p class="p-0 m-0" style="font-style: italic;color: #ff0000;font-size: small;" *ngIf="RegisterError">There was a problem registering try later..</p>
+                
                 <button type="button" (click)="Register()">Sign Up</button>
+            
             </form>
+
         </div>
         <div class="form-container sign-in-container">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -74,6 +78,8 @@
 
 
                 <a href="#">Forgot your password?</a>
+                    <p class="p-0 m-0" style="font-style: italic;color: #ff0000;font-size: small;" *ngIf="loginError">Invalid email or password</p>
+                <!-- <div style="font-style: italic;color: #ff0000;font-size: xx-small;" id="error-message"><p *ngIf="">{{message}}</p></div> -->
                 <button type="submit">Sign In</button>
             </form>
         </div>

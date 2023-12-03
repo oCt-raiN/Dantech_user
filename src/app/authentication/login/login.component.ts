@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router , ActivatedRoute} from '@angular/router';
 import { first } from 'rxjs/operators';
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,16 +22,18 @@ export class LoginComponent {
   reg_loading = false;
   reg_result:any
   passwordsMatching = false;
+  loginError: boolean = false;
+  RegisterError: boolean =false;
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router, 
     private authservice:AuthService,) {}
 
-
+    
     
   ngOnInit() {
-
+    
     this.form = this.formBuilder.group({
       email: ['',[Validators.required,Validators.email]],
       password: [
@@ -75,16 +79,32 @@ export class LoginComponent {
   this.authservice.login(this.f['email'].value, this.f['password'].value)
   .pipe(first())
   .subscribe({
-      next: () => {
-          // get return url from query parameters or default to home page
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          this.router.navigateByUrl(returnUrl);
-      },
+    next: (res) => {
+      this.result = res;
+      // window.confirm(this.result.message);
+      // get return url from query parameters or default to home page
+      // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      // this.router.navigateByUrl(returnUrl);
+      this.router.navigate(['/det/profile/view']);
+    },
+    error: (error) => {
+      this.loading = false;
+      this.loginError =true;
+
+    }
+    // {
+    //   // this.alertService.error(error);
+    //   // this.loading = false;
+    // }
     });
-    this.router.navigate(['/det/profile/view']);
+
   }
 
+  
+
+  
   Register(){
+
     this.reg_submitted = true;
 
     if (this.register.invalid){
@@ -97,14 +117,14 @@ export class LoginComponent {
           next: () => {
               // this.alertService.success('Registration successful', { keepAfterRouteChange: true });
               this.router.navigate(['../pages-login'], { relativeTo: this.route });
+              window.location.reload();
           },
           error: error => {
-              // this.alertService.error(error);
-              this.loading = false;
+            this.RegisterError = true;
           }
       });
 
-    // window.location.reload();
+    
   }
 
 

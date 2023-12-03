@@ -225,12 +225,14 @@
                             [ngClass]="{ 'is-invalid': submitted && f['gst'].errors }" type="text"
                             placeholder="Enter GST number">
                         <div *ngIf="submitted && f['gst'].errors" class="invalid-feedback">
-                            <div *ngIf="f['gst'].errors && f['gst'].errors['required']">UPI ID is required</div>
+                            <div *ngIf="f['gst'].errors && f['gst'].errors['required']">GST is required</div>
                         </div>
                     </div>
                 </div>
-                <!-- Save changes button-->
-                <button type="submit">Submit profile</button>
+                <!-- Save changes button-->            
+            <div class="d-flex justify-content-end">
+                   <button type="submit">Submit profile</button>
+            </div>
             </div>
         </div>
     </form>
