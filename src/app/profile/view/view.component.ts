@@ -42,7 +42,7 @@ export class ViewComponent {
     this.filteredData = doctorlist;
 
     this.form = this.formBuilder.group({
-      docname: ['',[Validators.required,Validators.pattern(/^[A-z]*$/),Validators.minLength(3)]],
+      Doctor_name: ['',[Validators.required,Validators.pattern(/^[A-z]*$/),Validators.minLength(3)]],
     });
   }
 

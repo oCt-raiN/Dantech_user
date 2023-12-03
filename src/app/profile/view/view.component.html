@@ -283,10 +283,10 @@
                 <form (ngSubmit)="onSubmit()" [formGroup]="form">
                     <div class="modal-body">
 
-                        <input type="text" formControlName="docname" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && f['docname'].errors }" placeholder="Name" />
-                        <div *ngIf=" submitted && f['docname'].errors" class="invalid-feedback">
-                            <div *ngIf="f['docname'].errors && f['docname'].errors['required']">Name is required</div>
+                        <input type="text" formControlName="Doctor_name" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['Doctor_name'].errors }" placeholder="Name" />
+                        <div *ngIf=" submitted && f['Doctor_name'].errors" class="invalid-feedback">
+                            <div *ngIf="f['Doctor_name'].errors && f['Doctor_name'].errors['required']">Name is required</div>
                         </div>
 
                     </div>
