@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { viewdat, Viewdata, doclist, doctorlist } from './view.data';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-view',
@@ -17,15 +21,52 @@ export class ViewComponent {
   filteredData: any[] = [];
   sortcolumn: string = '';
   sortDirection: string = 'asc';
+  // adddoctors form
+  form : FormGroup;
+  loading= false;
+  submitted= false;
+  resut: any
 
-  constructor(public router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(public router: Router, 
+    private activatedRoute: ActivatedRoute,    
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute, 
+    private authservice:AuthService,) {
     this.OrderDetails = viewdat;
     this.docdetails = doctorlist;
+
   }
 
   ngOnInit(): void {
     this.viewdatalist = this.OrderDetails;
     this.filteredData = doctorlist;
+
+    this.form = this.formBuilder.group({
+      docname: ['',[Validators.required,Validators.pattern(/^[A-z]*$/),Validators.minLength(3)]],
+    });
+  }
+
+  get f() { return this.form.controls; }
+
+  //form submit
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.authservice.adddoctor(this.form.value)
+    .pipe(first())
+    .subscribe({
+      next: () => {
+        this.router.navigate(['/det/profile/view']);
+      },
+      error: error => {
+        // this.alertService.error(error);
+        this.loading = false;
+      }
+    });
   }
 
   //table doctors

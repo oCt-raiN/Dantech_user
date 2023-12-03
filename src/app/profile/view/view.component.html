@@ -280,10 +280,14 @@
                     <h5 class="modal-title">Modal-Title</h5>
                     <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form>
+                <form (ngSubmit)="onSubmit()" [formGroup]="form">
                     <div class="modal-body">
 
-                        <input type="text" placeholder="Name" />
+                        <input type="text" formControlName="docname" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['docname'].errors }" placeholder="Name" />
+                        <div *ngIf=" submitted && f['docname'].errors" class="invalid-feedback">
+                            <div *ngIf="f['docname'].errors && f['docname'].errors['required']">Name is required</div>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
