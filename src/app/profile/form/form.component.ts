@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router , ActivatedRoute} from '@angular/router';
 import { first } from 'rxjs/operators';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-form',
@@ -14,17 +16,20 @@ export class FormComponent {
   loading = false;
   submitted = false;
   result: any
+  selected_image =null;
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router, 
-    private authservice:AuthService,) {}
+    private authservice:AuthService,
+    private http: HttpClient) {}
 
   // profile image
-  loadFile(event: Event): void {
+  loadFile(event :any){
     const target = event.target as HTMLInputElement;
     const image = document.getElementById('output') as HTMLImageElement;
-
+    console.log(event);
+    this.selected_image = event.target.files[0];
     if (target.files && target.files.length > 0) {
       const file = target.files[0];
       image.src = URL.createObjectURL(target.files[0]);
@@ -74,8 +79,16 @@ export class FormComponent {
   get f() { return this.form.controls; }
 
   onSubmit() {
+
+    const formdata = new FormData()
+    formdata.append("file",this.selected_image)
+    this.http.post("http://localhost:8000/file",formdata)
+    .subscribe((res)=>{
+      console.log(res)
+    })
     this.submitted = true;
 
+    console.log(this.form.value)
     if (this.form.invalid) {
       return;
     }

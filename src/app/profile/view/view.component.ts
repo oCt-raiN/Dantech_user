@@ -26,6 +26,11 @@ export class ViewComponent {
   loading= false;
   submitted= false;
   resut: any
+  // authenticate user 
+  userId: string;
+  userType:string;
+  accessToken:string;
+
 
   constructor(public router: Router, 
     private activatedRoute: ActivatedRoute,    
@@ -38,9 +43,20 @@ export class ViewComponent {
   }
 
   ngOnInit(): void {
+    // user 
+    const { userToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    const { fullName } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    const { accessToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    this.accessToken = accessToken;
+    this.userId = userToken;
+    this.userType = fullName
+    console.log(this.userId);
+
+    //data
     this.viewdatalist = this.OrderDetails;
     this.filteredData = doctorlist;
 
+    //form
     this.form = this.formBuilder.group({
       Doctor_name: ['',[Validators.required,Validators.minLength(3)]],
     });

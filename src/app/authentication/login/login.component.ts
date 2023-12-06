@@ -84,6 +84,7 @@ export class LoginComponent {
       // window.confirm(this.result.message);
       // get return url from query parameters or default to home page
       // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      // console.log(this.result)  
       // this.router.navigateByUrl(returnUrl);
       this.router.navigate(['/det/profile/view']);
     },
