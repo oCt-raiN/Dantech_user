@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router , ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
@@ -15,17 +20,24 @@ export class FormComponent {
   form: FormGroup;
   loading = false;
   submitted = false;
-  result: any
-  selected_image =null;
+  result: any;
+  selected_image = null;
+  stat_user: string;
+  userId: string;
+  userType: string;
+  accessToken: string;
+  userToken: any;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router, 
-    private authservice:AuthService,
-    private http: HttpClient) {}
+    private router: Router,
+    private authservice: AuthService,
+    private http: HttpClient
+  ) {}
 
   // profile image
-  loadFile(event :any){
+  loadFile(event: any) {
     const target = event.target as HTMLInputElement;
     const image = document.getElementById('output') as HTMLImageElement;
     console.log(event);
@@ -56,59 +68,108 @@ export class FormComponent {
   // }
 
   ngOnInit() {
+    const { userToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    const { fullName } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    const { accessToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    const { status } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    this.accessToken = accessToken;
+    this.userId = userToken;
+    this.userType = fullName;
+    this.stat_user = status;
 
     this.form = this.formBuilder.group({
       // image: ['',[Validators.required]],
-      name: ['',[Validators.required,Validators.pattern(/^[A-z]*$/),Validators.min(3)]],
-      email: ['',[Validators.required,Validators.email]],
-      phonenumber: ['',[Validators.required,Validators.pattern("[0-9]{10}")]],
-      alternativenumber: ['',[Validators.required,Validators.pattern("[0-9]{10}")]],
-      address: ['',[Validators.required,Validators.maxLength(50)]],
-      city: ['',[Validators.required]],
-      state: ['',[Validators.required]],
-      pincode: ['',[Validators.required,Validators.maxLength(6),Validators.pattern("^[1-9][0-9]+$")]],
-      country: ['',[Validators.required]],
-      bank_acNo: ['',[Validators.required,Validators.minLength(9),Validators.maxLength(16),Validators.pattern("[0-9]+")]],
-      ifsc : ['',[Validators.required,Validators.pattern("^[A-Za-z]{4}[a-zA-Z0-9]{7}$")]],
-      bank_brnch: ['',[Validators.required]],
-      upi_id: ['',[Validators.required,Validators.pattern("[a-zA-Z0-9_]{3,}@[a-zA-Z]{3,}")]],
-      gst: ['',[Validators.required,Validators.pattern("[0-9]{2}[A-Z]{3}[ABCFGHLJPTF]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}")]]
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-z]*$/),
+          Validators.min(3),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      phonenumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      alternativenumber: [
+        '',
+        [Validators.required, Validators.pattern('[0-9]{10}')],
+      ],
+      address: ['', [Validators.required, Validators.maxLength(50)]],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      pincode: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(6),
+          Validators.pattern('^[1-9][0-9]+$'),
+        ],
+      ],
+      country: ['', [Validators.required]],
+      bank_acNo: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(9),
+          Validators.maxLength(16),
+          Validators.pattern('[0-9]+'),
+        ],
+      ],
+      ifsc: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[A-Za-z]{4}[a-zA-Z0-9]{7}$'),
+        ],
+      ],
+      bank_brnch: ['', [Validators.required]],
+      upi_id: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-zA-Z0-9_]{3,}@[a-zA-Z]{3,}'),
+        ],
+      ],
+      gst: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            '[0-9]{2}[A-Z]{3}[ABCFGHLJPTF]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}'
+          ),
+        ],
+      ],
     });
   }
 
-  get f() { return this.form.controls; }
+  get f() {
+    return this.form.controls;
+  }
 
   onSubmit() {
-
-    const formdata = new FormData()
-    formdata.append("file",this.selected_image)
-    this.http.post("http://localhost:8000/file",formdata)
-    .subscribe((res)=>{
-      console.log(res)
-    })
+    // const formdata = new FormData();
+    // formdata.append('file', this.selected_image);
+    // this.http.post('http://localhost:8000/file', formdata).subscribe((res) => {
+    //   console.log(res);
+    // });
     this.submitted = true;
 
-    console.log(this.form.value)
     if (this.form.invalid) {
       return;
     }
     this.loading = true;
-    this.authservice.profilereg(this.form.value)
+    this.authservice
+      .profilereg(this.form.value, this.userToken)
       .pipe(first())
       .subscribe({
         next: () => {
           // this.router.navigate(['/det/profile/view']);
         },
-        error: error => {
+        error: (error) => {
           // this.alertService.error(error);
           this.loading = false;
-        }
+        },
       });
 
-
-    this.router.navigate(["/det/profile/view"])
+    // this.router.navigate(['/det/profile/view']);
   }
-
-
-
 }
