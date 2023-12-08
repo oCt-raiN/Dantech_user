@@ -18,7 +18,12 @@ function calculatePercentageCompletion(obj: any): string {
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       totalFields++;
-      if (obj[key] !== null) {
+
+      // Check if the key is "image" and the value is "assests/images/users/user.svg"
+      if (key === 'image' && obj[key] === 'assets/images/users/user.svg') {
+        // Reduce the filledFields count by 1
+        filledFields--;
+      } else if (obj[key] !== null) {
         filledFields++;
       }
     }
@@ -102,7 +107,7 @@ export class ViewComponent {
     this.accessToken = accessToken;
     this.userId = userToken;
     this.userType = fullName;
-    this.stat_user = status;
+
     // console.log(this.userId, this.accessToken, this.userType);
 
     //user details

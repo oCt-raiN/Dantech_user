@@ -76,6 +76,7 @@ export class FormComponent {
     this.userId = userToken;
     this.userType = fullName;
     this.stat_user = status;
+    // console.log(this.userId);
 
     this.form = this.formBuilder.group({
       // image: ['',[Validators.required]],
@@ -158,7 +159,7 @@ export class FormComponent {
     }
     this.loading = true;
     this.authservice
-      .profilereg(this.form.value, this.userToken)
+      .profilereg(this.form.value, this.userId)
       .pipe(first())
       .subscribe({
         next: () => {

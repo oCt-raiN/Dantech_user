@@ -27,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: '/det/pages/task',
+    path: '/det/pages/create-order',
     title: 'Create order',
     icon: 'bi bi-bag-plus',
     class: '',

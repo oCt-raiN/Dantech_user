@@ -67,12 +67,12 @@ export class AuthService {
   }
 
   profilereg(profile: Profileinformation, userToken: any) {
-    // const body = {
-    //   userToken: userToken,
-    //   profile,
-    // };
-    // console.log(body.profile);
-    return this.http.post(`${environment.apiUrl}/api/profile/save`, profile);
+    const body = {
+      userToken: userToken,
+      profile,
+    };
+    console.log(body);
+    return this.http.put(`${environment.apiUrl}/api/profile/save`, body);
   }
 
   profilereg_admin(profile: Profileinformation) {
