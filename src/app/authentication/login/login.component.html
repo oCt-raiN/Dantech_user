@@ -54,6 +54,23 @@
                     <div *ngIf="reg_submitted && r['password'].errors" class="invalid-feedback">
                         <div *ngIf="r['password'].errors && r['password'].errors['required']">Password is required</div>
                     </div>
+                    <div *ngIf="reg_submitted && r['password'].errors" class="invalid-feedback">
+                        <div *ngIf="r['password'].errors && r['password'].errors['minLength']">Password should have more
+                            than
+                            8 characters</div>
+                    </div>
+
+                    <div *ngIf="reg_submitted && r['password'].errors" class="invalid-feedback">
+                        <div *ngIf="r['password'].errors && r['password'].errors['pattern']"> Your current password is
+                            weak.
+                            <div>
+                                <p>
+                                    Must contain atleast a capital letter, a symbol and two numbers.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                     <input type="password" formControlName="confirmpassword" class="form-control"
                         [ngClass]="{ 'is-invalid': reg_submitted && r['confirmpassword'].errors }"
                         placeholder="Confirm Password" />
@@ -61,9 +78,25 @@
                         <div *ngIf="r['confirmpassword'].errors && r['confirmpassword'].errors['required']">Retype your
                             password</div>
                     </div>
-                    <div *ngIf="reg_submitted && r['password'].errors" class="invalid-feedback">
-                        <div *ngIf="r['password'].errors && r['password'].errors['pattern']">Password is weak</div>
+                    <div *ngIf="reg_submitted && r['confirmpassword'].errors" class="invalid-feedback">
+                        <div *ngIf="r['confirmpassword'].errors && r['confirmpassword'].errors['pattern']">Password is
+                            weak.
+                            <ul style="align-items: start;"> Must contain atleast
+                                <li>
+                                    A capital letter
+                                </li>
+                                <li>
+                                    A symbol
+                                </li>
+                                <li>
+                                    A number
+                                </li>
+
+                            </ul>
+                        </div>
                     </div>
+
+
                     <p class="p-0 m-0" style="font-style: italic;color: #ff0000;font-size: small;"
                         *ngIf="RegisterError">
                         {{error_message}}</p>

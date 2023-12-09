@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-function calculatePercentageCompletion(obj: any): string {
+function calculatePercentageCompletion(obj: any, doc: any): string {
   let totalFields = 0;
   let filledFields = 0;
 
@@ -28,6 +28,12 @@ function calculatePercentageCompletion(obj: any): string {
       }
     }
   }
+
+  if (doc) {
+    filledFields++;
+  }
+
+  filledFields--;
 
   return String(
     totalFields === 0
@@ -109,34 +115,6 @@ export class ViewComponent {
     this.userType = fullName;
 
     // console.log(this.userId, this.accessToken, this.userType);
-
-    //user details
-    this.userDetailsSubscription = this.authservice
-      .getUserDetails(this.userId)
-      .subscribe(
-        (res: any) => {
-          this.UserDetails = res;
-          // console.log('My details', this.UserDetails['profile']);
-          const userObject = this.UserDetails['profile'];
-          const percentageCompletion: string =
-            calculatePercentageCompletion(userObject);
-          userObject.profilecompletionpercentage = percentageCompletion;
-          this.userdata = convertNullValues(userObject);
-          if (this.userdata['image'] != 'assets/images/users/user.svg') {
-            this.img_uploaded = true;
-          }
-          if (this.userdata['gst'] != 'None') {
-            this.gst_no = true;
-          }
-
-          this.user_data = [this.userdata];
-          // console.log(this.user_data);
-        },
-        (error: any) => {
-          console.log('Error fetching user details:', error);
-        }
-      );
-
     //doc data
     this.docDetailsSubscription = this.authservice
       .getalldoc(this.userId)
@@ -154,6 +132,35 @@ export class ViewComponent {
         },
         (error: any) => {
           console.log('Error fetching doc details:', error);
+        }
+      );
+
+    //user details
+    this.userDetailsSubscription = this.authservice
+      .getUserDetails(this.userId)
+      .subscribe(
+        (res: any) => {
+          this.UserDetails = res;
+          // console.log('My details', this.UserDetails['profile']);
+          const userObject = this.UserDetails['profile'];
+          const percentageCompletion: string = calculatePercentageCompletion(
+            userObject,
+            this.doc_count
+          );
+          userObject.profilecompletionpercentage = percentageCompletion;
+          this.userdata = convertNullValues(userObject);
+          if (this.userdata['image'] != 'assets/images/users/user.svg') {
+            this.img_uploaded = true;
+          }
+          if (this.userdata['gst'] != 'None') {
+            this.gst_no = true;
+          }
+
+          this.user_data = [this.userdata];
+          // console.log(this.user_data);
+        },
+        (error: any) => {
+          console.log('Error fetching user details:', error);
         }
       );
 

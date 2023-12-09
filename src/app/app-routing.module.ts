@@ -8,7 +8,6 @@ export const Approutes: Routes = [
     path: 'det',
     component: FullComponent,
     children: [
-
       {
         path: 'dashboard',
         loadChildren: () =>

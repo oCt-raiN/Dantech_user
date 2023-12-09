@@ -7,58 +7,19 @@
                         <img src="{{ts.image}}" alt="avatar" class="rounded-circle img-fluid" style="width: 184px;">
                         <br>
                         <br>
-                        <h5 class="card-subtitle text-muted">{{ts.clinicName}}</h5>
+                        <h3 class="card-title">{{ts.clinicName}}</h3>
+                        <div class="row ">
+                            <div class="d-flex justify-content-center flex-row">
+                                <h5 class="">Clinic Id :</h5>
+                                <h5 class="text-muted"> {{ts.clinicid}}</h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card mb-4">
                     <div class="card-body p-2">
                         <h4 class="card-title" style="padding-top:7%; padding-left:7%">GST number</h4>
                         <h5 class="card-subtitle text-muted" style="padding-top:3%; padding-left:7%">{{ts.gst}}</h5>
-                    </div>
-                </div>
-                <div class="card mb-4 mb-lg-0" style="padding-bottom:8%">
-                    <div class="card-body p-0">
-                        <h4 class="card-title" style="padding-top:7%; padding-left:7%">Bank details</h4>
-                        <h5 class="card-subtitle text-muted" style="padding-top:3%; padding-left:7%">Payment
-                            informations</h5>
-                        <ul class="list-group list-group-flush rounded-3">
-                            <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <div class="col">
-                                    <h5 class="mb-0 fw-normal ms-3">GST number</h5><br>
-                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.gst}}</h5>
-                                </div>
-                            </li> -->
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <div class="col">
-                                    <h5 class="mb-0 fw-normal ms-3">Bank account number</h5><br>
-                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.bankacnumber}}
-                                    </h5>
-
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <div class="col">
-
-                                    <h5 class="mb-0 fw-normal ms-3">IFSC number</h5><br>
-                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.ifsc}}</h5>
-
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <div class="col">
-
-                                    <h5 class="mb-0 fw-normal ms-3">Bank branch</h5><br>
-                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.bankbranch}}</h5>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <div class="col">
-                                    <h5 class="mb-0 fw-normal ms-3">UPI id</h5><br>
-                                    <h5 class="card-subtitle text-muted" style="margin-left:6% ;">{{ts.upiid}}
-                                    </h5>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -85,7 +46,7 @@
                                     profile</button>
                             </div>
                         </div>
-                        <div class="row" style="padding-top: 5%;">
+                        <div class="row" style="padding-top: 3%;">
                             <div class="col-6">
                                 <ul style="list-style-type: none;">
                                     <li>
@@ -170,149 +131,66 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h4 class="card-title">Clinic/Hospital information</h4><br>
-                        <div class="row">
-                            <div class="col-5">
-                                <h5 class="mb-0 fw-normal ms-3">Clinic/Hospital name </h5><br>
-                            </div>
-                            <div class="col-7">
-                                <h5 class="card-subtitle text-muted">{{ts.clinicName}}</h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-5">
-                                <h5 class="mb-0 fw-normal ms-3">Number </h5>
-                            </div>
-                            <div class="col-7">
-                                <h5 class="card-subtitle text-muted">{{ts.phonenumber}}</h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-5">
-                                <h5 class="mb-0 fw-normal ms-3">Email </h5><br>
-                            </div>
-                            <div class="col-7">
-                                <h5 class="card-subtitle text-muted">{{ts.email}}</h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-5">
-                                <h5 class="mb-0 fw-normal ms-3">Address </h5><br>
-                            </div>
-                            <div class="col-7">
-                                <h5 class="card-subtitle text-muted">{{ts.address}}</h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-5">
-                                <h5 class="mb-0 fw-normal ms-3">City</h5>
-                            </div>
-                            <div class="col-7">
-                                <h5 class="card-subtitle text-muted">{{ts.city}}</h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-5">
-                                <h5 class="mb-0 fw-normal ms-3">State</h5>
-                            </div>
-                            <div class="col-7">
-                                <h5 class="card-subtitle text-muted">{{ts.state}}</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-        <div class="container ">
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title">Clinic/Hospital information</h4><br>
             <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- title -->
-                        <h4 class="card-title">Doctors</h4>
-                        <h5 class="card-subtitle">Overview of doctors list</h5>
-                        <div class="row">
-                            <div class="col-10">
-                                <input class="form-control" type="text" name="search" [(ngModel)]="searchText"
-                                    (ngModelChange)="filterData()" autocomplete="off" placeholder="Find your orders">
-                            </div>
-                            <div class="col-2 align-self-center">
-                                <button class="login-button" data-bs-toggle="modal" data-bs-target="#modalid">Add
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th (click)="sortColumn('clinicid')" class="text-dark font-medium fs-4">
-                                                Clinic
-                                                Id
-                                                &nbsp; <i class="bi bi-arrow-down-up"></i></th>
-                                            <th (click)="sortColumn('doctorid')" class="text-dark font-medium fs-4">
-                                                Doctor
-                                                Id
-                                                &nbsp; <i class="bi bi-arrow-down-up"></i></th>
-                                            <th (click)="sortColumn('doctorname')" class="text-dark font-medium fs-4">
-                                                Doctor
-                                                Name &nbsp; <i class="bi bi-arrow-down-up"></i></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor='let ts of filteredData'>
-                                            <td class="fs-4">
-                                                {{ts.clinicid}}
-                                            </td>
-                                            <td>
-                                                {{ts.doctorid}}
-                                            </td>
-                                            <td>
-                                                {{ts.doctorname}}
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="!doc_count">
-                                            <td colspan="3" style="text-align: center;"> No Doctors..! </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-5">
+                    <h5 class="mb-0 fw-normal ms-3">Clinic/Hospital name </h5><br>
+                </div>
+                <div class="col-7">
+                    <h5 class="card-subtitle text-muted">{{ts.clinicName}}</h5>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-5">
+                    <h5 class="mb-0 fw-normal ms-3">Number </h5>
+                </div>
+                <div class="col-7">
+                    <h5 class="card-subtitle text-muted">{{ts.phonenumber}}</h5>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-5">
+                    <h5 class="mb-0 fw-normal ms-3">Email </h5><br>
+                </div>
+                <div class="col-7">
+                    <h5 class="card-subtitle text-muted">{{ts.email}}</h5>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-5">
+                    <h5 class="mb-0 fw-normal ms-3">Address </h5><br>
+                </div>
+                <div class="col-7">
+                    <h5 class="card-subtitle text-muted">{{ts.address}}</h5>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-5">
+                    <h5 class="mb-0 fw-normal ms-3">City</h5>
+                </div>
+                <div class="col-7">
+                    <h5 class="card-subtitle text-muted">{{ts.city}}</h5>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-5">
+                    <h5 class="mb-0 fw-normal ms-3">State</h5>
+                </div>
+                <div class="col-7">
+                    <h5 class="card-subtitle text-muted">{{ts.state}}</h5>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalid">
-        <div class="modal-dialog modal-dialog-center">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal-Title</h5>
-                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form (ngSubmit)="onSubmit()" [formGroup]="form">
-                    <div class="modal-body">
 
-                        <input type="text" formControlName="Doctor_name" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['Doctor_name'].errors }" placeholder="Name" />
-                        <div *ngIf=" submitted && f['Doctor_name'].errors" class="invalid-feedback">
-                            <div *ngIf="f['Doctor_name'].errors && f['Doctor_name'].errors['required']">Name is required
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                            [routerLink]="['/profile/view']">Add
-                            Doctor</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
 </section>

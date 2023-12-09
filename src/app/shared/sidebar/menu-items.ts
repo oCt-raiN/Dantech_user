@@ -27,6 +27,14 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
+    path: '/det/pages/add-doctors',
+    title: 'Add doctors',
+    icon: 'bi bi-person-add',
+    class: '',
+    extralink: false,
+    submenu: [],
+  },
+  {
     path: '/det/pages/create-order',
     title: 'Create order',
     icon: 'bi bi-bag-plus',
@@ -42,7 +50,14 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: [],
   },
-
+  {
+    path: '/det/pages/bank-details',
+    title: 'Bank details',
+    icon: 'bi bi-bank',
+    class: '',
+    extralink: false,
+    submenu: [],
+  },
   // {
   //   path: '/pages/toporders',
   //   title: 'All orders',
