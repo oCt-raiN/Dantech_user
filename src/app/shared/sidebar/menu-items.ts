@@ -2,6 +2,22 @@ import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
   {
+    path: '/det/profile/view',
+    title: 'Profile',
+    icon: 'bi bi-person-circle',
+    class: '',
+    extralink: false,
+    submenu: [],
+  },
+  {
+    path: '/det/pages/bank-details',
+    title: 'Bank details',
+    icon: 'bi bi-bank',
+    class: '',
+    extralink: false,
+    submenu: [],
+  },
+  {
     path: '/det/dashboard',
     title: 'Dashboard',
     icon: 'bi bi-speedometer2',
@@ -10,22 +26,22 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
 
-  {
-    path: '/auth/login',
-    title: 'Login',
-    icon: 'bi bi-box-arrow-in-right',
-    class: '',
-    extralink: false,
-    submenu: [],
-  },
-  {
-    path: '/auth/register',
-    title: 'Register',
-    icon: 'bi bi-person-add',
-    class: '',
-    extralink: false,
-    submenu: [],
-  },
+  // {
+  //   path: '/auth/login',
+  //   title: 'Login',
+  //   icon: 'bi bi-box-arrow-in-right',
+  //   class: '',
+  //   extralink: false,
+  //   submenu: [],
+  // },
+  // {
+  //   path: '/auth/register',
+  //   title: 'Register',
+  //   icon: 'bi bi-person-add',
+  //   class: '',
+  //   extralink: false,
+  //   submenu: [],
+  // },
   {
     path: '/det/pages/add-doctors',
     title: 'Add doctors',
@@ -42,22 +58,7 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: [],
   },
-  {
-    path: '/det/profile/view',
-    title: 'Profile',
-    icon: 'bi bi-person-circle',
-    class: '',
-    extralink: false,
-    submenu: [],
-  },
-  {
-    path: '/det/pages/bank-details',
-    title: 'Bank details',
-    icon: 'bi bi-bank',
-    class: '',
-    extralink: false,
-    submenu: [],
-  },
+
   // {
   //   path: '/pages/toporders',
   //   title: 'All orders',

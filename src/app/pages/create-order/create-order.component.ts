@@ -75,7 +75,8 @@ export class CreateOrderComponent {
       .subscribe(
         (res: any) => {
           this.UserDetails = res;
-          this.stat_user = this.UserDetails['status'];
+          this.stat_user = this.UserDetails['statuscode'];
+          console.log("status",this.stat_user)
           // console.log('My details', this.UserDetails['profile']);
           const userObject = this.UserDetails['profile'];
           if (this.userdata['image'] != 'assets/images/users/user.svg') {
@@ -93,7 +94,7 @@ export class CreateOrderComponent {
         }
       );
 
-    this.stat_user = status;
+
 
     $(document).ready(function () {
       var selectedTeeth: { [key: string]: boolean } = {}; // Object to store selected teeth states

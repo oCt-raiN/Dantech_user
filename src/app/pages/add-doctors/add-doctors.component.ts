@@ -75,12 +75,12 @@ export class AddDoctorsComponent {
           this.UserDetails = res;
           // console.log('My details', this.UserDetails['profile']);
           const userObject = this.UserDetails['profile'];
-          if (this.userdata['image'] != 'assets/images/users/user.svg') {
-            this.img_uploaded = true;
-          }
-          if (this.userdata['gst'] != 'None') {
-            this.gst_no = true;
-          }
+          // if (this.userdata['image'] != 'assets/images/users/user.svg') {
+          //   this.img_uploaded = true;
+          // }
+          // if (this.userdata['gst'] != 'None') {
+          //   this.gst_no = true;
+          // }
 
           this.user_data = [this.userdata];
           // console.log(this.user_data);
@@ -98,7 +98,7 @@ export class AddDoctorsComponent {
           this.docdetails = res;
           // console.log(this.docdetails['doctor']);
           this.doc_data = this.docdetails['doctor'];
-          console.log('data', this.doc_data);
+          // console.log('data', this.doc_data);
           if (this.doc_data['length'] > 0) {
             this.doc_count = true;
           }
@@ -171,14 +171,16 @@ export class AddDoctorsComponent {
 
   filterData() {
     if (this.searchText) {
-      console.log('Hi');
-      this.filteredData = this.doc_data.filter((item) => {
+      // console.log('Hi');
+      this.filteredData = this.doc_data.filter((item: any) => {
         // console.log('My data', this.filteredData);
         // Customize the filtering logic as needed
         return (
-          item.clinicid.toLowerCase().includes(this.searchText.toLowerCase()) ||
-          item.doctorid.includes(this.searchText) ||
-          item.doctorname.includes(this.searchText)
+          item.doctorid.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          item.Firstname.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          item.Lastname.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          item.Specialisation.toLowerCase().includes(this.searchText.toLowerCase())
+          // .includes(this.searchText)
         );
       });
     } else {

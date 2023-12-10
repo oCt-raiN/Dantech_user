@@ -109,13 +109,11 @@ export class ViewComponent {
     const { userToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
     const { fullName } = JSON.parse(localStorage.getItem('user') ?? '{}');
     const { accessToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
-    const { status } = JSON.parse(localStorage.getItem('user') ?? '{}');
     this.accessToken = accessToken;
     this.userId = userToken;
     this.userType = fullName;
 
     // console.log(this.userId, this.accessToken, this.userType);
-    //doc data
     this.docDetailsSubscription = this.authservice
       .getalldoc(this.userId)
       .subscribe(
