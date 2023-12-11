@@ -37,6 +37,15 @@ export function fileExtensionValidator(allowedExtensions: string[]) {
   styleUrls: ['./create-order.component.scss'],
 })
 export class CreateOrderComponent {
+  //form
+  form: FormGroup;
+  loading = false;
+  submitted = false;
+  result: any;
+  clinicid: any;
+  phone_number: any;
+  clinic_name: any;
+
   // authenticate user
   user_data: any;
   stat_user: string;
@@ -54,7 +63,12 @@ export class CreateOrderComponent {
   gst_no = false;
   img_uploaded = false;
 
-  constructor(public router: Router, private authservice: AuthService) {}
+  constructor(
+    public router: Router,
+    private formBuilder: FormBuilder,
+    private authservice: AuthService,
+    private route: ActivatedRoute
+  ) {}
   onServiceSelect(event: any) {
     this.selectedOption = event.target.value;
     console.log(this.selectedOption);
@@ -64,11 +78,42 @@ export class CreateOrderComponent {
     const { userToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
     const { fullName } = JSON.parse(localStorage.getItem('user') ?? '{}');
     const { accessToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
-    const { status } = JSON.parse(localStorage.getItem('user') ?? '{}');
     this.accessToken = accessToken;
     this.userId = userToken;
     this.userType = fullName;
 
+    //validation
+    this.form = this.formBuilder.group({
+      doctor_name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-z]*$/),
+          Validators.min(3),
+        ],
+      ],
+      clinicid: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      patientname: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-z]*$/),
+          Validators.min(3),
+        ],
+      ],
+      clinicname: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-z]*$/),
+          Validators.min(3),
+        ],
+      ],
+      doctorid: ['', [Validators.required]],
+      service: ['', [Validators.required]],
+      orderdate: ['', [Validators.required]],
+    });
     //user details
     this.userDetailsSubscription = this.authservice
       .getUserDetails(this.userId)
@@ -76,7 +121,7 @@ export class CreateOrderComponent {
         (res: any) => {
           this.UserDetails = res;
           this.stat_user = this.UserDetails['statuscode'];
-          console.log("status",this.stat_user)
+          console.log('status', this.stat_user);
           // console.log('My details', this.UserDetails['profile']);
           const userObject = this.UserDetails['profile'];
           if (this.userdata['image'] != 'assets/images/users/user.svg') {
@@ -93,8 +138,6 @@ export class CreateOrderComponent {
           console.log('Error fetching user details:', error);
         }
       );
-
-
 
     $(document).ready(function () {
       var selectedTeeth: { [key: string]: boolean } = {}; // Object to store selected teeth states
@@ -134,6 +177,9 @@ export class CreateOrderComponent {
         console.log(selectedTeeth); // Log the selected teeth
       }
     });
+  }
+  get f() {
+    return this.form.controls;
   }
 
   submit() {
