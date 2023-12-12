@@ -7,6 +7,8 @@ import {
   FormGroup,
   Validators,
   FormControl,
+  FormArray,
+  ReactiveFormsModule,
   AbstractControl,
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -29,6 +31,19 @@ export function fileExtensionValidator(allowedExtensions: string[]) {
 
     return null;
   };
+}
+
+export function getSelectedOptions(question: any): string {
+  const selectedOptions: string[] = [];
+  const question2Array = this.form.get(question) as FormArray;
+
+  question2Array.controls.forEach((control: AbstractControl) => {
+    if (control.value) {
+      selectedOptions.push(control.value);
+    }
+  });
+
+  return selectedOptions.join(','); // Convert the array to a string separated by commas
 }
 
 @Component({
@@ -82,6 +97,18 @@ export class CreateOrderComponent {
     this.userId = userToken;
     this.userType = fullName;
 
+    //checkbox
+    const user = {
+      crown_bridge: [
+        { name: 'Wax-up', selected: false },
+        { name: 'Crown', selected: false },
+        { name: 'Veener', selected: false },
+        { name: 'Inlay', selected: false },
+        { name: 'Bridge', selected: false },
+        { name: 'Onlay', selected: false },
+      ],
+    };
+
     //validation
     this.form = this.formBuilder.group({
       doctor_name: [
@@ -89,11 +116,11 @@ export class CreateOrderComponent {
         [
           Validators.required,
           Validators.pattern(/^[A-z]*$/),
-          Validators.min(3),
+          Validators.minLength(3),
         ],
       ],
-      clinicid: ['', [Validators.required]],
-      phonenumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      // clinicid: ['', [Validators.required]],
+      // phonenumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       patientname: [
         '',
         [
@@ -102,17 +129,22 @@ export class CreateOrderComponent {
           Validators.min(3),
         ],
       ],
-      clinicname: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[A-z]*$/),
-          Validators.min(3),
-        ],
-      ],
+      // clinicname: [
+      //   '',
+      //   [
+      //     Validators.required,
+      //     Validators.pattern(/^[A-z]*$/),
+      //     Validators.min(3),
+      //   ],
+      // ],
       doctorid: ['', [Validators.required]],
       service: ['', [Validators.required]],
       orderdate: ['', [Validators.required]],
+      orderduedate: ['', [Validators.required]],
+      crown_bridge: this.formBuilder.array(
+        [false, false, false],
+        Validators.required
+      ),
     });
     //user details
     this.userDetailsSubscription = this.authservice
@@ -124,12 +156,6 @@ export class CreateOrderComponent {
           console.log('status', this.stat_user);
           // console.log('My details', this.UserDetails['profile']);
           const userObject = this.UserDetails['profile'];
-          if (this.userdata['image'] != 'assets/images/users/user.svg') {
-            this.img_uploaded = true;
-          }
-          if (this.userdata['gst'] != 'None') {
-            this.gst_no = true;
-          }
 
           this.user_data = [this.userdata];
           // console.log(this.user_data);
@@ -181,9 +207,18 @@ export class CreateOrderComponent {
   get f() {
     return this.form.controls;
   }
+  onSubmit() {
+    this.submitted = true;
+    console.log(getSelectedOptions('crown_bridge'));
+    console.log(this.form.value);
 
-  submit() {
-    window.alert('File submitted');
-    this.router.navigate(['/pages/casedetail']);
+    if (this.form.invalid) {
+      return;
+    }
   }
+
+  // submit() {
+  //   window.alert('File submitted');
+  //   this.router.navigate(['/pages/casedetail']);
+  // }
 }
