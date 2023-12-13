@@ -15,43 +15,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-export function fileExtensionValidator(allowedExtensions: string[]) {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    const file = control.value as File;
-    if (!file) {
-      return null; // If there's no file, return no error
-    }
-
-    let extension = file.name.split('.').pop();
-    extension = extension ? extension.toLowerCase() : '';
-
-    if (!allowedExtensions.includes(extension)) {
-      return { invalidExtension: true };
-    }
-
-    return null;
-  };
-}
-
-export function getSelectedOptions(question: any): string {
-  const selectedOptions: string[] = [];
-  const type1Array = this.form.get(question) as FormArray;
-
-  type1Array.controls.forEach((control: AbstractControl) => {
-    if (control.value) {
-      selectedOptions.push(control.value);
-    }
-  });
-
-  return selectedOptions.join(','); // Convert the array to a string separated by commas
-}
-
 @Component({
-  selector: 'app-create-order',
-  templateUrl: './create-order.component.html',
-  styleUrls: ['./create-order.component.scss'],
+  selector: 'app-demo',
+  templateUrl: './demo.component.html',
+  styleUrls: ['./demo.component.scss'],
 })
-export class CreateOrderComponent {
+export class DemoComponent {
   //form
   form: FormGroup;
   loading = false;
@@ -77,6 +46,17 @@ export class CreateOrderComponent {
   // check prescence
   gst_no = false;
   img_uploaded = false;
+  type1Checkboxes = [
+    'Wax-Up',
+    'Crown',
+    'Veener',
+    'Inlay',
+    'Bridge',
+    'Onlay',
+    'Endocrown',
+    'Interim',
+  ];
+  type2Checkboxes = ['Screw', 'Cement', 'Hole'];
 
   constructor(
     public router: Router,
@@ -84,9 +64,14 @@ export class CreateOrderComponent {
     private authservice: AuthService,
     private route: ActivatedRoute
   ) {}
-  onServiceSelect(event: any) {
-    this.selectedOption = event.target.value;
-    console.log(this.selectedOption);
+
+  getTodayDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 
   ngOnInit(): void {
@@ -97,17 +82,15 @@ export class CreateOrderComponent {
     this.userId = userToken;
     this.userType = fullName;
 
-    //checkbox
-    const user = {
-      crown_bridge: [
-        { name: 'Wax-up', selected: false },
-        { name: 'Crown', selected: false },
-        { name: 'Veener', selected: false },
-        { name: 'Inlay', selected: false },
-        { name: 'Bridge', selected: false },
-        { name: 'Onlay', selected: false },
-      ],
-    };
+    const type1Array = this.formBuilder.array(
+      this.type1Checkboxes.map(() => false),
+      Validators.required
+    );
+
+    const type2Array = this.formBuilder.array(
+      this.type2Checkboxes.map(() => false),
+      Validators.required
+    );
 
     //validation
     this.form = this.formBuilder.group({
@@ -119,8 +102,7 @@ export class CreateOrderComponent {
           Validators.minLength(3),
         ],
       ],
-      // clinicid: ['', [Validators.required]],
-      // phonenumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+
       patientname: [
         '',
         [
@@ -129,22 +111,13 @@ export class CreateOrderComponent {
           Validators.min(3),
         ],
       ],
-      // clinicname: [
-      //   '',
-      //   [
-      //     Validators.required,
-      //     Validators.pattern(/^[A-z]*$/),
-      //     Validators.min(3),
-      //   ],
-      // ],
+
       doctorid: ['', [Validators.required]],
       service: ['', [Validators.required]],
       orderdate: ['', [Validators.required]],
       orderduedate: ['', [Validators.required]],
-      crown_bridge: this.formBuilder.array(
-        [false, false, false],
-        Validators.required
-      ),
+      type1: type1Array,
+      type2: type2Array,
     });
     //user details
     this.userDetailsSubscription = this.authservice
@@ -153,9 +126,7 @@ export class CreateOrderComponent {
         (res: any) => {
           this.UserDetails = res;
           this.stat_user = this.UserDetails['statuscode'];
-          console.log(this.UserDetails)
-          console.log('status', this.stat_user);
-          // console.log('My details', this.UserDetails['profile']);
+          console.log('My User details', this.UserDetails);
           const userObject = this.UserDetails['profile'];
 
           this.user_data = [this.userdata];
@@ -165,6 +136,8 @@ export class CreateOrderComponent {
           console.log('Error fetching user details:', error);
         }
       );
+
+    //For teeth selection
 
     $(document).ready(function () {
       var selectedTeeth: { [key: string]: boolean } = {}; // Object to store selected teeth states
@@ -205,21 +178,68 @@ export class CreateOrderComponent {
       }
     });
   }
+
+  updateCheckbox(index: number, type: string): void {
+    const checkboxArray = this.form.get(type) as FormArray;
+    checkboxArray.controls[index].setValue(
+      !checkboxArray.controls[index].value
+    );
+  }
+  // Rename the original getSelectedOptions method
+  getSelectedOptionsForType1(): string {
+    const selectedOptions: string[] = [];
+    const type1Array = this.form.get('type1') as FormArray;
+
+    type1Array.controls.forEach((control, index) => {
+      if (control.value) {
+        selectedOptions.push(this.type1Checkboxes[index]);
+      }
+    });
+
+    return selectedOptions.join(','); // Convert the array to a string separated by commas
+  }
+
+  // Add a new method for getting selected options for type2
+  getSelectedOptionsForType2(): string {
+    const selectedOptions: string[] = [];
+    const type2Array = this.form.get('type2') as FormArray;
+
+    type2Array.controls.forEach((control, index) => {
+      if (control.value) {
+        selectedOptions.push(this.type2Checkboxes[index]);
+      }
+    });
+
+    return selectedOptions.join(','); // Convert the array to a string separated by commas
+  }
+
   get f() {
     return this.form.controls;
   }
+
   onSubmit() {
     this.submitted = true;
-    this.form.value['crown_bridge'] = getSelectedOptions('crown_bridge');
+
+    const selectedOptionsType1 = this.getSelectedOptionsForType1();
+    const selectedOptionsType2 = this.getSelectedOptionsForType2();
+
+    console.log('Selected Options Type1:', selectedOptionsType1);
+    console.log('Selected Options Type2:', selectedOptionsType2);
+
+    const formdata = {
+      result: {
+        type1: 'Crown & Bridge',
+        options1: selectedOptionsType1,
+        type2: 'Implant crown & Bridge',
+        options2: selectedOptionsType2,
+      },
+    };
+
+    console.log('My form data', formdata);
     console.log(this.form.value);
 
     if (this.form.invalid) {
       return;
     }
   }
-
-  // submit() {
-  //   window.alert('File submitted');
-  //   this.router.navigate(['/pages/casedetail']);
-  // }
 }
