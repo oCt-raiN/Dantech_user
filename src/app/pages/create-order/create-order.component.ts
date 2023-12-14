@@ -60,6 +60,7 @@ export class CreateOrderComponent {
   clinicid: any;
   phone_number: any;
   clinic_name: any;
+  description: any;
 
   // authenticate user
   user_data: any;
@@ -153,7 +154,8 @@ export class CreateOrderComponent {
         (res: any) => {
           this.UserDetails = res;
           this.stat_user = this.UserDetails['statuscode'];
-          console.log(this.UserDetails)
+          console.log(this.UserDetails);
+          this.description = this.UserDetails['description'];
           console.log('status', this.stat_user);
           // console.log('My details', this.UserDetails['profile']);
           const userObject = this.UserDetails['profile'];
