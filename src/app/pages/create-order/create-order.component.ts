@@ -90,6 +90,15 @@ export class CreateOrderComponent {
     console.log(this.selectedOption);
   }
 
+  getTodayDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
   ngOnInit(): void {
     const { userToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
     const { fullName } = JSON.parse(localStorage.getItem('user') ?? '{}');
@@ -120,8 +129,8 @@ export class CreateOrderComponent {
           Validators.minLength(3),
         ],
       ],
-      // clinicid: ['', [Validators.required]],
-      // phonenumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      clinicid: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       patientname: [
         '',
         [
@@ -130,14 +139,14 @@ export class CreateOrderComponent {
           Validators.min(3),
         ],
       ],
-      // clinicname: [
-      //   '',
-      //   [
-      //     Validators.required,
-      //     Validators.pattern(/^[A-z]*$/),
-      //     Validators.min(3),
-      //   ],
-      // ],
+      clinicname: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-z]*$/),
+          Validators.min(3),
+        ],
+      ],
       doctorid: ['', [Validators.required]],
       service: ['', [Validators.required]],
       orderdate: ['', [Validators.required]],
