@@ -24,14 +24,14 @@
                     <div class="col-6">
                         <label name="">Unique registration ID</label>
                         <input class="form-control" placeholder="Unique registration ID" formControlName="uniqueid"
-                            [(ngModel)]="UserDetails.profile.clinicid" readonly type="text" required>
+                            [(ngModel)]="UserDetails.profile.clinicid" readonly type="text"  readonly required>
                     </div>
                 </div>
                 <div class="row d-flex justify-content-around">
                     <div class="wd50">
                         <label name="">Phone number</label>
                         <input class="form-control" formControlName="phonenumber"
-                            [(ngModel)]="UserDetails.profile.phonenumber" type="tel" required>
+                            [(ngModel)]="UserDetails.profile.phonenumber"  readonly type="tel" required>
                     </div>
                     <div class="wd50">
                         <label name="">Patient Name</label>
