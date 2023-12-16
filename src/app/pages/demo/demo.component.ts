@@ -221,7 +221,7 @@ export class DemoComponent implements OnInit, AfterViewInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.pattern(/^[A-z]*$/),
+          Validators.pattern(/^[A-z].*$/),
           Validators.minLength(3),
         ],
       ],
