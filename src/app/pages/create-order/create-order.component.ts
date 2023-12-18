@@ -18,6 +18,9 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { OrderService } from 'src/app/services/order.service';
+
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -158,7 +161,9 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     private formBuilder: FormBuilder,
     private authservice: AuthService,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private userservice: UserService,
+    private orderservice: OrderService
   ) {}
 
   getTodayDate(): string {
@@ -183,7 +188,7 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userType = fullName;
 
     //user details
-    this.userDetailsSubscription = this.authservice
+    this.userDetailsSubscription = this.userservice
       .getUserDetails(this.userId)
       .subscribe(
         (res: any) => {
@@ -565,8 +570,8 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     //   doctorid: this.form.value['doctorid'],
     // };
 
-    this.authservice
-      .orderreg(this.form.value, formdata, this.selected_tooth)
+    this.orderservice
+      .orderreg(this.form.value, formdata, this.selected_tooth, this.userId)
       .pipe(first())
       .subscribe({
         next: (res) => {
