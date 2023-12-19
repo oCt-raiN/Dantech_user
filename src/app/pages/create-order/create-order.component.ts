@@ -155,6 +155,7 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   type14Checkboxes = ['Low', 'Regular', 'High'];
   type15Checkboxes = ['Low', 'Regular', 'High'];
   type16Checkboxes = ['No', 'Low', 'High', 'Follow adjacent tooth texture'];
+  type19Checkboxes = ['Sanitary', 'FullRidge', 'Modified', 'Bullet', 'Ovate'];
 
   constructor(
     public router: Router,
@@ -212,7 +213,7 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
       var selectedTeeth: { [key: string]: boolean } = {}; // Object to store selected teeth states
       var $toothNumber = $('.tooth-number');
 
-      $('.tooth').on('click touchstart', function (event) {
+      $('.tooth').on('click touchstart', function (event: any) {
         var $this = $(this);
         var toothText: string = $this.data('title');
 
@@ -346,6 +347,11 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
         this.type16Checkboxes.map(() => false),
         Validators.required
       ),
+      type18: ['', [Validators.required, Validators.maxLength(700)]],
+      type19: this.formBuilder.array(
+        this.type19Checkboxes.map(() => false),
+        Validators.required
+      ),
     });
   }
 
@@ -373,6 +379,7 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     const type14Array = this.form.get('type14') as FormArray;
     const type15Array = this.form.get('type15') as FormArray;
     const type16Array = this.form.get('type16') as FormArray;
+    const type19Array = this.form.get('type19') as FormArray;
 
     this.type1Checkboxes.forEach(() =>
       type1Array.push(this.formBuilder.control(false))
@@ -422,6 +429,9 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.type16Checkboxes.forEach(() =>
       type16Array.push(this.formBuilder.control(false))
     );
+    this.type19Checkboxes.forEach(() =>
+      type19Array.push(this.formBuilder.control(false))
+    );
 
     // Manually trigger change detection
     this.cdr.detectChanges();
@@ -432,6 +442,7 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     checkboxArray.controls[index].setValue(
       !checkboxArray.controls[index].value
     );
+    // console.log(checkboxArray);
   }
 
   // Rename the original getSelectedOptions method
@@ -446,6 +457,21 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     return selectedOptions.join(','); // Convert the array to a string separated by commas
+  }
+  getSelectedOptionsForType19(Type: any, checkbox: any): string {
+    const selectedOptions: string[] = [];
+    var selecteoption = String;
+    const typeArray = this.form.get(Type) as FormArray;
+
+    typeArray.controls.forEach((control, index) => {
+      if (control.value) {
+        selectedOptions.push(checkbox[index]);
+        selecteoption = checkbox[index];
+      }
+    });
+    console.log('type19', selectedOptions, selecteoption);
+
+    return selectedOptions[0]; // Convert the array to a string separated by commas
   }
 
   get f() {
@@ -519,6 +545,10 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
       'type16',
       this.type16Checkboxes
     );
+    const selectedOptionsType19 = this.getSelectedOptionsForType19(
+      'type19',
+      this.type19Checkboxes
+    );
 
     const formdata = {
       result: {
@@ -554,6 +584,8 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
         option15: selectedOptionsType15,
         type16: 'Texture',
         option16: selectedOptionsType16,
+        type19: 'Pontic Design',
+        option19: selectedOptionsType19,
       },
     };
 
