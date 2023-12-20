@@ -36,13 +36,13 @@ export class LoginComponent {
     private authservice: AuthService
   ) {}
 
-  password(formGroup: FormGroup) {
-    const { value: password } = formGroup.get('password');
-    const { value: confirmPassword } = formGroup.get('confirmpassword');
-    return password === confirmPassword
-      ? { passwordNotMatch: false, message: '' }
-      : { passwordNotMatch: true, message: 'Password does not match!' };
-  }
+  // password(formGroup: FormGroup) {
+  //   const { value: password } = formGroup.get('password');
+  //   const { value: confirmPassword } = formGroup.get('confirmpassword');
+  //   return password === confirmPassword
+  //     ? { passwordNotMatch: false, message: '' }
+  //     : { passwordNotMatch: true, message: 'Password does not match!' };
+  // }
 
   ngOnInit() {
     this.authservice.logout();
@@ -96,10 +96,10 @@ export class LoginComponent {
             Validators.minLength(8),
           ],
         ],
-      },
-      {
-        validators: this.password.bind(this),
       }
+      // {
+      //   validators: this.password.bind(this),
+      // }
     );
   }
 
@@ -113,6 +113,7 @@ export class LoginComponent {
 
   onSubmit() {
     this.submitted = true;
+    console.log(this.form.value);
     // reset alerts on submit
     // this.alertService.clear();
     // stop here if form is invalid
@@ -146,6 +147,7 @@ export class LoginComponent {
 
   Register() {
     this.reg_submitted = true;
+    console.log(this.register.value);
 
     if (this.register.invalid) {
       return;
