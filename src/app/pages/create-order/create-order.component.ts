@@ -23,6 +23,7 @@ import { OrderService } from 'src/app/services/order.service';
 
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { DisableRightClickService } from 'src/app/services/disable-right-click.service';
 
 export function fileExtensionValidator(allowedExtensions: string[]) {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -86,6 +87,7 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   form_values: any;
   //form
   selectedOption: string = '';
+  add_comments = 'Nill..!';
   // check prescence
   gst_no = false;
   img_uploaded = false;
@@ -164,7 +166,8 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private userservice: UserService,
-    private orderservice: OrderService
+    private orderservice: OrderService,
+    private rightClickDisable: DisableRightClickService
   ) {}
 
   getTodayDate(): string {
@@ -177,43 +180,11 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initializeForm();
-    // this.fetchUserData();
-    this.populateCheckboxes();
-
-    const { userToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
-    const { fullName } = JSON.parse(localStorage.getItem('user') ?? '{}');
-    const { accessToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
-    this.accessToken = accessToken;
-    this.userId = userToken;
-    this.userType = fullName;
-
-    //user details
-    this.userDetailsSubscription = this.userservice
-      .getUserDetails(this.userId)
-      .subscribe(
-        (res: any) => {
-          this.UserDetails = res;
-          this.stat_user = this.UserDetails['statuscode'];
-          console.log('My User details', this.UserDetails);
-          const userObject = this.UserDetails['profile'];
-          this.descriptions = this.UserDetails['description'];
-
-          this.user_data = [this.userdata];
-          // console.log(this.user_data);
-        },
-        (error: any) => {
-          console.log('Error fetching user details:', error);
-        }
-      );
-
-    //For teeth selection
-
     $(document).ready(function () {
       var selectedTeeth: { [key: string]: boolean } = {}; // Object to store selected teeth states
       var $toothNumber = $('.tooth-number');
 
-      $('.tooth').on('click touchstart', function (event: any) {
+      $('.tooth').on('click touchstart', function (event) {
         var $this = $(this);
         var toothText: string = $this.data('title');
 
@@ -247,6 +218,38 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log(selectedTeeth); // Log the selected teeth
       }
     });
+
+    this.rightClickDisable.disableRightClick();
+
+    this.initializeForm();
+    // this.fetchUserData();
+    this.populateCheckboxes();
+
+    const { userToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    const { fullName } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    const { accessToken } = JSON.parse(localStorage.getItem('user') ?? '{}');
+    this.accessToken = accessToken;
+    this.userId = userToken;
+    this.userType = fullName;
+
+    //user details
+    this.userDetailsSubscription = this.userservice
+      .getUserDetails(this.userId)
+      .subscribe(
+        (res: any) => {
+          this.UserDetails = res;
+          this.stat_user = this.UserDetails['statuscode'];
+          console.log('My User details', this.UserDetails);
+          const userObject = this.UserDetails['profile'];
+          this.descriptions = this.UserDetails['description'];
+
+          this.user_data = [this.userdata];
+          // console.log(this.user_data);
+        },
+        (error: any) => {
+          console.log('Error fetching user details:', error);
+        }
+      );
   }
 
   ngAfterViewInit(): void {
