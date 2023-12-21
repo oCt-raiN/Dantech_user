@@ -15,6 +15,8 @@ import { DemoComponent } from './demo/demo.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { authGuard } from '../helpers/auth.guard';
 import { OrderListComponent } from './order-list/order-list.component';
+import { OrdersummaryComponent } from './ordersummary/ordersummary.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -67,6 +69,11 @@ const routes: Routes = [
         component: OrderListComponent,
         canActivate: [authGuard],
       },
+      {
+        path: 'ordersummary/:id',
+        component: OrdersummaryComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
 ];
@@ -84,6 +91,7 @@ const routes: Routes = [
     DemoComponent,
     OrderSuccessComponent,
     OrderListComponent,
+    OrdersummaryComponent,
   ],
   imports: [
     CommonModule,
