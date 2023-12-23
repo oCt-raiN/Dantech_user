@@ -87,7 +87,7 @@ export class CreateOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   form_values: any;
   //form
   selectedOption: string = '';
-  add_comments = 'Nill..!';
+  add_comments = 'Nill!';
   // check prescence
   gst_no = false;
   img_uploaded = false;
